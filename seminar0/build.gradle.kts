@@ -34,6 +34,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

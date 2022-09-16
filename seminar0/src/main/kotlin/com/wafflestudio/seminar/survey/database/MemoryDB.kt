@@ -10,15 +10,15 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Component
-class MemoryDB {
+class MemoryDB : Repository {
     private val operatingSystems = mutableListOf<OperatingSystem>()
     private val surveyResponses = mutableListOf<SurveyResponse>()
 
-    fun getOperatingSystems(): List<OperatingSystem> {
+    override fun getOperatingSystems(): List<OperatingSystem> {
         return operatingSystems
     }
 
-    fun getSurveyResponses(): List<SurveyResponse> {
+    override fun getSurveyResponses(): List<SurveyResponse> {
         return surveyResponses
     }
 
