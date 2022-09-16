@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/v1")
 class DBController (
     private val dbService: DBService
 ){
