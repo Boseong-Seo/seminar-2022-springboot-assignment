@@ -1,6 +1,7 @@
 package com.wafflestudio.seminar.survey.service
 
-import com.wafflestudio.seminar.survey.api.SeminarExceptionHandler
+import com.wafflestudio.seminar.survey.api.ErrorCode
+import com.wafflestudio.seminar.survey.api.SeminarException
 import com.wafflestudio.seminar.survey.database.Repository
 import com.wafflestudio.seminar.survey.domain.OperatingSystem
 import com.wafflestudio.seminar.survey.domain.ReturnSurveyResponse
@@ -14,8 +15,6 @@ class DBServiceImpl(
     val surveyList = repository.getSurveyResponses()
     val osList = repository.getOperatingSystems()
     
-    private val errorHandler = SeminarExceptionHandler()
-    
     override fun findAll(): List<ReturnSurveyResponse>{
         return surveyList.map { 
             ReturnSurveyResponse(
@@ -28,10 +27,8 @@ class DBServiceImpl(
     }
 
     override fun findSurveyById(id: Long): ReturnSurveyResponse {
-        val result = surveyList.find { it.id == id }
-        result?: throw errorHandler.SeminarException(
-            SeminarExceptionHandler.ErrorCode.SURVEY_NOT_FOUND
-        )
+        val result = surveyList.find { it.id == id }?: 
+            throw SeminarException(ErrorCode.SURVEY_NOT_FOUND)
 
         return ReturnSurveyResponse(
             result.id,
@@ -43,15 +40,11 @@ class DBServiceImpl(
     
     override fun findOsById(osId: Long): OperatingSystem {
         return osList.find{ it.id == osId }?:
-            throw errorHandler.SeminarException(
-                SeminarExceptionHandler.ErrorCode.OS_NOT_FOUND
-            )
+            throw SeminarException(ErrorCode.OS_NOT_FOUND)
     }
 
     override fun findOsByName(osName: String): OperatingSystem {
         return osList.find{ it.osName == osName }?:
-            throw errorHandler.SeminarException(
-                SeminarExceptionHandler.ErrorCode.OS_NOT_FOUND
-            )
+            throw SeminarException(ErrorCode.OS_NOT_FOUND)
     }
 }
